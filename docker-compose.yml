@@ -1,0 +1,31 @@
+version: '3'
+
+networks:
+  backend_network:
+    driver: bridge
+
+services:
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+
+  backend1:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile.ps
+    ports:
+      - "3001:3001"
+    networks:
+      - backend_network
+
+  backend2:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile.cs
+    ports:
+      - "3031:3031"
+    networks:
+      - backend_network

@@ -1,0 +1,84 @@
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.product-card {
+  width: 300px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #e44d26; /* Orange color */
+}
+
+.add-to-cart-btn {
+  padding: 10px;
+  font-size: 14px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #45a049;
+}
+.add-to-cart-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #45a049;
+}
+
+.add-to-cart-btn.added-to-cart {
+  background-color: #3498db; /* Change the background color when added to the cart */
+}
+
+/* Add a keyframe animation for the added-to-cart class */
+@keyframes flash {
+  from {
+    background-color: #3498db;
+  }
+  to {
+    background-color: #4caf50;
+  }
+}
+
+.add-to-cart-btn.added-to-cart-animation {
+  animation: flash 1s ease; /* Use the flash animation for 1 second */
+}
