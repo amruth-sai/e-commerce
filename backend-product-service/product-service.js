@@ -1,9 +1,16 @@
+const config =
+  process.env.NODE_ENV === "production"
+    ? require("./config.prod")
+    : require("./config.dev");
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
 
-
+const databaseUrl = config.DATABASE_URL;
+console.log(config.AUTH_SERVICE_URL);
 const app = express();
 const port = 3001;
 app.use(
@@ -14,7 +21,7 @@ app.use(
 app.use(bodyParser.json());
 
 mongoose.connect(
-  "mongodb+srv://amruthsaiporeddy:qwer1234t5@cluster0.4f9gk2w.mongodb.net/eCommerceDB?retryWrites=true&w=majority",
+  databaseUrl,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -38,7 +45,7 @@ app.post("/products", async (req, res) => {
     res.status(201).send(product);
   } catch (error) {
     res.status(500).send(error);
-      }
+  }
 });
 
 app.put("/products/:id", async (req, res) => {

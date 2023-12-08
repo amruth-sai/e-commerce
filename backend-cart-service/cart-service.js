@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser"); // Added cookie-parser
 const cors = require("cors");
 const axios = require("axios");
+require("dotenv").config();
+const databaseUrl = process.env.DATABASE_URL;
 
 const app = express();
 const port = 3031;
@@ -16,13 +18,10 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser()); // Use cookie-parser middleware
 
-mongoose.connect(
-  "mongodb+srv://amruthsaiporeddy:qwer1234t5@cluster0.4f9gk2w.mongodb.net/eCommerceDB?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(databaseUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const cartSchema = new mongoose.Schema({
   userId: String,
@@ -36,8 +35,30 @@ const cartSchema = new mongoose.Schema({
 
 const Cart = mongoose.model("Cart", cartSchema);
 
+// Middleware to check if the user is authenticated
+function authenticateToken(req, res, next) {
+  const token = req.headers.authorization || req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  axios
+    .get('http://authentication-service/validateToken', {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then(() => {
+      next();
+    })
+    .catch(() => {
+      res.status(401).json({ message: 'Unauthorized' });
+    });
+}
+
 // API Endpoints
-app.get("/carts", async (req, res) => {
+app.get("/carts",authenticateToken, async (req, res) => {
   try {
     const userId = req.cookies.userId || 1;
     // console.log(userId);

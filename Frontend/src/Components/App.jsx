@@ -1,9 +1,8 @@
 import React from "react";
-import axios from "axios";
 import ProductList from "./ProductList";
 import Cart from "./Cart";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import "./App.css"; // Import your CSS file
+import "../CSS/App.css"; // Import your CSS file
 
 const App = () => {
   return (

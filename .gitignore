@@ -2,5 +2,7 @@
 Frontend/node_modules/
 
 # Ignore node_modules directory in backend
-Backend/node_modules
+backend-product-service/node_modules
+backend-cart-service/node_modules
+backend-auth-service/node_modules
 
